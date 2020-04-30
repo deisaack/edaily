@@ -24,19 +24,19 @@ def ussd_callback(request):
     for key in body:
         if "phoneNumber" in key:
             phoneNumber = key.replace("phoneNumber=", "")
-            break
+            continue
         if "serviceCode" in key:
             serviceCode=key.replace("serviceCode=", "")
-            break
+            continue
         if "text" in key:
             text=key.replace("text=", "")
-            break
+            continue
         if "sessionId" in key:
             sessionId=key.replace("sessionId=", "")
-            break
+            continue
         if "networkCode" in key:
             networkCode=key.replace("networkCode=", "")
-            break
+            continue
     if text == "":
         resp = "CON What would you want to check \n1. My Account \n2. My Balance \n"
     elif text == "1":
