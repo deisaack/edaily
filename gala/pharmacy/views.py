@@ -38,7 +38,9 @@ def ussd_callback(request):
             networkCode=key.replace("networkCode=", "")
             continue
     if text == "":
-        resp = "CON What would you want to check \n1. My Account \n2. My Balance \n"
+        resp = "CON What would you want to check \n1. Diseases \n2. Covid19 \n"
+    elif text == "2":
+        resp="END There are a total of 3,272,059 cases with 231,267 deaths globaly"
     elif text == "1":
         resp = "Get information on\n1. Diabetes\n2. Hypertesion\n3. Kidney issues\n4.Heart Issues"
     elif text == "1*1":
