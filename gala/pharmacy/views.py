@@ -39,17 +39,17 @@ def ussd_callback(request):
             break
     if text == "":
         resp = "CON What would you want to check \n1. My Account \n2. My Balance \n"
-    if text == "1":
+    elif text == "1":
         resp = "Get information on\n1. Diabetes\n2. Hypertesion\n3. Kidney issues\n4.Heart Issues"
-    if text == "1*1":
+    elif text == "1*1":
         resp = "CON Diabetes\n1. Nutrition/Diet\n2.Food near you\3. Pharmacies"
-    if text == "1*2":
+    elif text == "1*2":
         resp = "CON Hypertesion\n1. Nutrition/Diet\n2.Food near you\3. Pharmacies"
-    if text == "1*3":
+    elif text == "1*3":
         resp = "CON Kidney issues\n1. Nutrition/Diet\n2.Food near you\3. Pharmacies"
-    if text == "1*4":
+    elif text == "1*4":
         resp = "CON Heart Issues\n1. Nutrition/Diet\n2.Food near you\3. Pharmacies"
-    if text == "1*5":
+    elif text == "1*5":
         resp = "END The information will be sent to you shortly"
     else:
         resp = "END Invalid option"
