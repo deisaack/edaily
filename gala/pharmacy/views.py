@@ -52,5 +52,5 @@ def ussd_callback(request):
     elif text == "1*5":
         resp = "END The information will be sent to you shortly"
     else:
-        resp = f"END Invalid option {text}"
+        resp = f"END Invalid option {text} {body}"
     return HttpResponse(resp)
