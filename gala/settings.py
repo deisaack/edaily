@@ -26,7 +26,7 @@ SECRET_KEY = 'fsv$jw9k44vive_-gt0cbfpk+u582h+syy7i2q*v0f4#mlx9+o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
