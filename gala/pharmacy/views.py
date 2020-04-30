@@ -39,8 +39,6 @@ def ussd_callback(request):
             continue
     if text == "":
         resp = "CON What would you want to check \n1. Diseases \n2. Covid19 \n"
-    elif text == "2":
-        resp="END There are a total of 3,272,059 cases with 231,267 deaths globaly"
     elif text == "1":
         resp = "Get information on\n1. Diabetes\n2. Hypertesion\n3. Kidney issues\n4.Heart Issues"
     elif text == "1*1":
@@ -53,6 +51,8 @@ def ussd_callback(request):
         resp = "CON Heart Issues\n1. Nutrition/Diet\n2.Food near you\3. Pharmacies"
     elif text == "1*5":
         resp = "END The information will be sent to you shortly"
+    elif text == "2":
+        resp="END There are a total of 3,272,059 cases with 231,267 deaths globaly"
     else:
         resp = f"END Invalid option {text} {body}"
     return HttpResponse(resp)
