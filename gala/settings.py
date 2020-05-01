@@ -27,7 +27,17 @@ SECRET_KEY = 'fsv$jw9k44vive_-gt0cbfpk+u582h+syy7i2q*v0f4#mlx9+o'
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
+sentry_sdk.init(
+    dsn="https://42596e8a487f4792af5aabe730f24a0b@o285434.ingest.sentry.io/5220200",
+    integrations=[DjangoIntegration()],
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
 
 # Application definition
 

@@ -42,7 +42,7 @@ def ussd_callback(request):
     if text == "":
         resp = "CON What would you want to check \n1. Diseases \n2. Covid19"
     else:
-        text = text.split("*");
+        text = text.split("*")
         if len(text) == 1:
             text = int(text[0])
             if text == 1:
