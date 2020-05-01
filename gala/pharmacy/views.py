@@ -41,9 +41,9 @@ def ussd_callback(request):
     resp = f"END Invalid option, please try again"
     if text == "":
         resp = "CON What would you want to check \n1. Diseases \n2. Covid19"
-    elif text == "1":
+    elif text in ["1", 1]:
         resp = "Get information on\n1. Diabetes\n2. Hypertesion\n3. Kidney issues\n4.Heart Issues"
-    elif text == "1*1":
+    elif text in ["1*1", "1 * 1", "1* 1", "1 *1"]:
         resp = "CON Diabetes\n1. Nutrition/Diet\n2.Food near you\3. Pharmacies"
     elif text == "1*2":
         resp = "CON Hypertesion\n1. Nutrition/Diet\n2.Food near you\3. Pharmacies"
