@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from rest_framework.routers import DefaultRouter
@@ -14,3 +16,4 @@ urlpatterns = [
     path("ussd-callback/", ussd_callback),
 ]
 urlpatterns += router.urls
+urlpatterns+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
