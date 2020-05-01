@@ -16,12 +16,14 @@ from . import serializers as sz
 @csrf_exempt
 def ussd_callback(request):
     body=request.body.decode("utf-8")
+    print(body)
     body=urllib.parse.unquote(body)
     body=body.split("&")
     phoneNumber=None
     serviceCode=None
     text=None
     resp=None
+    print(body)
     for key in body:
         if "phoneNumber" in key:
             phoneNumber = key.replace("phoneNumber=", "")
