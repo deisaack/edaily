@@ -8,6 +8,9 @@ from rest_framework.decorators import action, api_view, permission_classes, pars
 from rest_framework import permissions, viewsets, status
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser, FormParser
+
+from gala.pharmacy.models import Staff, Pharmacy
+from gala.pharmacy.serializers import PharmacySerializer, StaffSerializer
 from . import serializers as sz
 
 # @api_view(["post"])
@@ -81,3 +84,13 @@ class UserAuthViewset(viewsets.ViewSet):
                 "error": "Please check your username or password"
             }, status=status.HTTP_404_NOT_FOUND)
         return Response()
+
+class StaffViewset(viewsets.ModelViewSet):
+    queryset = Staff.objects.all()
+    serializer_class = StaffSerializer
+
+
+
+class PharmacyViewset(viewsets.ModelViewSet):
+    queryset = Staff.objects.all()
+    serializer_class = PharmacySerializer
