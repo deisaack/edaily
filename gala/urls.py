@@ -5,9 +5,9 @@ from rest_framework.routers import DefaultRouter
 from gala.pharmacy.views import ussd_callback, UserAuthViewset, PharmacyViewset, StaffViewset
 
 router = DefaultRouter()
-router.register("staff", StaffViewset, )
-router.register("pharmacy", PharmacyViewset, )
-router.register("auth", PharmacyViewset, )
+router.register("staff", StaffViewset, basename="staff")
+router.register("pharmacy", PharmacyViewset, basename="pharmacy")
+router.register("auth", UserAuthViewset, basename="auth")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
