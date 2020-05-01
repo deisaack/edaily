@@ -41,18 +41,24 @@ def ussd_callback(request):
     resp = f"END Invalid option, please try again"
     if text == "":
         resp = "CON What would you want to check \n1. Diseases \n2. Covid19"
-    elif text in ["1", 1]:
-        resp = "Get information on\n1. Diabetes\n2. Hypertesion\n3. Kidney issues\n4.Heart Issues"
-    elif text in ["1*1", "1 * 1", "1* 1", "1 *1"]:
-        resp = "CON Diabetes\n1. Nutrition/Diet\n2.Food near you\3. Pharmacies"
-    elif text == "1*2":
-        resp = "CON Hypertesion\n1. Nutrition/Diet\n2.Food near you\3. Pharmacies"
-    elif text == "1*3":
-        resp = "CON Kidney issues\n1. Nutrition/Diet\n2.Food near you\3. Pharmacies"
-    elif text == "1*4":
-        resp = "CON Heart Issues\n1. Nutrition/Diet\n2.Food near you\3. Pharmacies"
-    elif text in ["1*5*1", "1*4*1", "1*3*1", "1*2*1", "1*1*1", "1*5*2", "1*4*2", "1*3*2", "1*2*2", "1*1*2", "1*2"]:
-        resp = "END The information will be sent to you shortly"
+    else:
+        text = text.split("*");
+        if len(text) == 1:
+            text = int(text[0])
+            if text == 1:
+                resp = "Get information on\n1. Diabetes\n2. Hypertesion\n3. Kidney issues\n4.Heart Issues"
+            elif text == 2:
+                resp = "Covid19 is a respiratory disease that has claimed 209,234 lives and 3,109,103 cases"
+        elif text in ["1*1", "1 * 1", "1* 1", "1 *1"]:
+            resp = "CON Diabetes\n1. Nutrition/Diet\n2.Food near you\3. Pharmacies"
+        elif text == "1*2":
+            resp = "CON Hypertesion\n1. Nutrition/Diet\n2.Food near you\3. Pharmacies"
+        elif text == "1*3":
+            resp = "CON Kidney issues\n1. Nutrition/Diet\n2.Food near you\3. Pharmacies"
+        elif text == "1*4":
+            resp = "CON Heart Issues\n1. Nutrition/Diet\n2.Food near you\3. Pharmacies"
+        elif text in ["1*5*1", "1*4*1", "1*3*1", "1*2*1", "1*1*1", "1*5*2", "1*4*2", "1*3*2", "1*2*2", "1*1*2", "1*2"]:
+            resp = "END The information will be sent to you shortly"
     return HttpResponse(resp)
 
 
