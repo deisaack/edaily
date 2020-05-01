@@ -44,14 +44,11 @@ def ussd_callback(request):
     if text == "":
         resp = "CON What would you want to check \n1. Diseases \n2. Covid19"
     else:
-        text = text.split("*")
-        if len(text) == 1:
-            text = int(text[0])
-            if text == 1:
-                resp = "Get information on\n1. Diabetes\n2. Hypertesion\n3. Kidney issues\n4.Heart Issues"
-            elif text == 2:
-                resp = "Covid19 is a respiratory disease that has claimed 209,234 lives and 3,109,103 cases"
-        elif text in ["1*1", "1 * 1", "1* 1", "1 *1"]:
+        if text == 1:
+                resp = "CON Get information on\n1. Diabetes\n2. Hypertesion\n3. Kidney issues\n4.Heart Issues"
+        elif text == "2":
+            resp = "CON Covid19 is a respiratory disease that has claimed 209,234 lives and 3,109,103 cases"
+        elif text == "1*1":
             resp = "CON Diabetes\n1. Nutrition/Diet\n2.Food near you\3. Pharmacies"
         elif text == "1*2":
             resp = "CON Hypertesion\n1. Nutrition/Diet\n2.Food near you\3. Pharmacies"
