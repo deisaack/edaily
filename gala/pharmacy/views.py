@@ -6,10 +6,12 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import action, api_view, permission_classes, parser_classes
 from rest_framework import permissions, viewsets, status
+from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser, FormParser
+from rest_framework_jwt.settings import api_settings
 
-from gala.pharmacy.models import Staff, Pharmacy
+from gala.pharmacy.models import Staff, Pharmacy, Drug, Disease
 from gala.pharmacy.serializers import PharmacySerializer, StaffSerializer
 from . import serializers as sz
 
@@ -65,8 +67,10 @@ def ussd_callback(request):
     return HttpResponse(resp)
 
 
-class UserAuthViewset(viewsets.ViewSet):
+class UserAuthViewset(viewsets.ModelViewSet):
     permission_classes = [permissions.AllowAny]
+    queryset = User.objects.all()
+    serializer_class = sz.UserSerializer
 
     @action(methods=['post'], detail=False, permission_classes=[permissions.AllowAny])
     def login(self, request) -> '[{Response Object}]':
@@ -77,20 +81,39 @@ class UserAuthViewset(viewsets.ViewSet):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         username = serializer.data['username']
         password = serializer.data['password']
+        login_as = serializer.data["login_as"]
         try:
             user = User.objects.get(username=username)
         except User.DoesNotExist:
             return Response({
                 "error": "Please check your username or password"
             }, status=status.HTTP_404_NOT_FOUND)
-        return Response()
+        obj = sz.UserSerializer(user).data
+        obj["login_as"] = login_as
+        obj["staff"] = {}
+        if login_as!="user":
+            staff = get_object_or_404(Staff.objects.all(), user=user)
+            obj["staff"] = sz.StaffSerializer(staff).data
+        jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+        jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+
+        payload = jwt_payload_handler(user)
+        obj['token'] = jwt_encode_handler(payload)
+        return Response(obj)
 
 class StaffViewset(viewsets.ModelViewSet):
     queryset = Staff.objects.all()
     serializer_class = StaffSerializer
 
 
-
 class PharmacyViewset(viewsets.ModelViewSet):
-    queryset = Staff.objects.all()
+    queryset = Pharmacy.objects.all()
     serializer_class = PharmacySerializer
+
+class DrugViewset(viewsets.ModelViewSet):
+    queryset = Drug.objects.all()
+    serializer_class = sz.DrugSerializer
+
+class DiseaseViewset(viewsets.ModelViewSet):
+    queryset = Disease.objects.all()
+    serializer_class = sz.DiseaseSerializer

@@ -4,10 +4,12 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from gala.pharmacy.views import ussd_callback, UserAuthViewset, PharmacyViewset, StaffViewset
+from gala.pharmacy.views import ussd_callback, UserAuthViewset, DiseaseViewset, PharmacyViewset, StaffViewset, DrugViewset
 
 router = DefaultRouter()
 router.register("staff", StaffViewset, basename="staff")
+router.register("drug", DrugViewset, basename="drug")
+router.register("disease", DiseaseViewset, basename="disease")
 router.register("pharmacy", PharmacyViewset, basename="pharmacy")
 router.register("auth", UserAuthViewset, basename="auth")
 
@@ -15,5 +17,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("ussd-callback/", ussd_callback),
 ]
+
 urlpatterns += router.urls
 urlpatterns+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
